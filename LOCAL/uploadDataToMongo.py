@@ -27,33 +27,29 @@ def read_file(file_path):
 
 
 def store_files_in_mongo(root_folder_path, parent_id=None):
-    for root, dirs, files in os.walk(root_folder_path):
-        for file in files:
-            if file.endswith('.txt'):
-                file_path = os.path.join(root, file)
-                content = read_file(file_path)
+    for entry in os.scandir(root_folder_path):
+        if entry.is_file() and os.path.splitext(entry.name)[1] == '.txt':
+            content = read_file(entry)
+            # データベースに保存
+            file_data = {
+                'year': year,
+                'name': entry.name,
+                'path': os.path.relpath(entry, root_folder_path),
+                'type': 'file',
+                'content': content,
+                'parent_id': parent_id,
+            }
+            result = collection.insert_one(file_data)
 
-                # データベースに保存
-                file_data = {
-                    'year': year,
-                    'name': file,
-                    'path': os.path.relpath(file_path, root_folder_path),
-                    'type': 'file',
-                    'content': content,
-                    'parent_id': parent_id,
-                }
-                result = collection.insert_one(file_data)
+            # 新しいフォルダのIDを設定
+            new_parent_id = result.inserted_id
 
-                # 新しいフォルダのIDを設定
-                new_parent_id = result.inserted_id
-
-        for dir in dirs:
-            sub_folder_path = os.path.join(root, dir)
+        elif entry.is_dir():
             # データベースにフォルダを登録し、新しいIDを取得
             folder_data = {
                 'year': year,
-                'name': dir,
-                'path': os.path.relpath(sub_folder_path, root_folder_path),
+                'name': entry.name,
+                'path': os.path.relpath(entry, root_folder_path),
                 'type': 'folder',
                 'parent_id': parent_id
             }
@@ -61,7 +57,7 @@ def store_files_in_mongo(root_folder_path, parent_id=None):
             new_parent_id = result.inserted_id
 
             # サブフォルダに対して再帰的に処理
-            store_files_in_mongo(sub_folder_path, new_parent_id)
+            store_files_in_mongo(entry, new_parent_id)
 
 
 store_files_in_mongo(folder_path)
