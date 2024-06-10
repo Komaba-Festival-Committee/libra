@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 7400",
     "build": "next build",
     "start": "next start",
     "lint": "run-p -l -c --aggregate-output lint:*",
@@ -15,6 +15,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "axios": "^1.7.2",
+    "mongodb": "^6.7.0",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
