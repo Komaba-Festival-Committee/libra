@@ -1,0 +1,80 @@
+// 色やフォントの設定
+$main-dark: #960026;
+$sub2-dark: #ad4456;
+$underline-color: black;
+
+@font-face {
+  // 数字のみ
+  font-family: sippori;
+  src: var(--font-shippori);
+  unicode-range: U+0030-0039;
+}
+
+.content {
+  h1 {
+    // letter-spacing: 0.2em; // 文字ヅメ20%
+    font-feature-settings: "palt";
+    color: $sub2-dark;
+    padding-left: 3mm;
+    margin-top: 8mm;
+    margin-bottom: 1mm;
+    text-indent: 4mm;
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 0.35mm; // 線の高さ
+      background-color: $sub2-dark; // 線の色
+      top: 55%; // 中央に配置
+      z-index: -1; // テキストの背後に配置
+    }
+
+    span {
+      background-color: white;
+      background-clip: border-box;
+      padding: 0 0.1mm;
+    }
+
+    font-family: sippori, var(--font-zen);
+    font-weight: 400;
+    font-size: 2.15rem;
+    line-height: 4rem;
+  }
+
+  h2 {
+    font-size: 1.76rem;
+    font-weight: 500;
+    line-height: 2.08rem;
+    padding-left: 6mm; // 左インデント
+    margin-top: 0.95rem; // 段落前の空き
+    margin-bottom: 0.48rem; // 段落後の空き
+    position: relative; // 囲み罫の位置設定のため
+    color: $main-dark;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.02rem;
+      bottom: 0;
+      width: 0.6rem; // 罫線の幅
+      background-color: $main-dark; // 罫線の色
+      z-index: -1; // テキストの背後に配置
+    }
+  }
+
+  font-family: var(--font-noto);
+  font-size: 1rem;
+  line-height: 1.9rem;
+
+  h1 + span {
+    display: block;
+    margin-top: 0.72rem;
+  }
+  h2 + span {
+    display: block;
+    margin-top: 0.72rem;
+  }
+}
