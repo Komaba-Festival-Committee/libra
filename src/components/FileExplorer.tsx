@@ -1,16 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-interface FileData {
-  _id: string;
-  name: string;
-  type: string;
-  isOpen?: boolean;
-  parent_id?: string;
-  year: string;
-}
-
-const FileExplorer: React.FC = () => {
+const FileExplorer = ({
+  onFileSelect,
+}: {
+  onFileSelect: (file: FileData) => void;
+}) => {
   const [files, setFiles] = useState<FileData[]>([]);
 
   useEffect(() => {
@@ -35,7 +30,7 @@ const FileExplorer: React.FC = () => {
 
   const renderFiles = (
     items: FileData[],
-    parentId: string | null,
+    parentId: string | null = null,
   ): JSX.Element[] => {
     return items
       .filter((item) => item.parent_id === parentId)
@@ -45,12 +40,15 @@ const FileExplorer: React.FC = () => {
           {item.type === 'folder' ? (
             <div
               onClick={() => toggleFolder(item._id)}
-              className="cursor-pointer font-medium pl-2 py-[0.2em] hover:bg-slate-200 rounded"
+              className="cursor-pointer font-medium pl-2 py-[0.2em] my-[0.1em] hover:bg-slate-200 rounded"
             >
               {item.isOpen ? '📂' : '📁'} {item.name}
             </div>
           ) : (
-            <div className="pl-2 py-[0.2em] hover:bg-slate-200 rounded">
+            <div
+              onClick={() => onFileSelect(item)}
+              className="cursor-pointer font-normal pl-2 py-[0.2em] my-[0.1em] hover:bg-slate-200 rounded"
+            >
               📄 {item.name.replace('.txt', '')}
             </div>
           )}
@@ -61,7 +59,7 @@ const FileExplorer: React.FC = () => {
       ));
   };
 
-  return <div>{renderFiles(files, null)}</div>;
+  return <div className="w-[20vw] mr-4">{renderFiles(files)}</div>;
 };
 
 export default FileExplorer;
