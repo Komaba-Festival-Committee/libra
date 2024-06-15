@@ -14,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${zen.variable} ${sippori.variable} ${noto.variable}`}>
+      <body
+        className={`${zen.variable} ${sippori.variable} ${noto.variable} overflow-hidden`}
+      >
         {children}
       </body>
     </html>

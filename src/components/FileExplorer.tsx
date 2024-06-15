@@ -59,7 +59,11 @@ const FileExplorer = ({
       ));
   };
 
-  return <div className="w-[20vw] mr-4">{renderFiles(files)}</div>;
+  return (
+    <div className="w-[20vw] mr-4 bg-white p-2 rounded drop-shadow-lg overflow-scroll h-[92vh]">
+      {renderFiles(files)}
+    </div>
+  );
 };
 
 export default FileExplorer;

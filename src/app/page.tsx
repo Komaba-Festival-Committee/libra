@@ -18,8 +18,8 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-0 p-4">
-      <h1 className="font-bold text-xl pb-2">駒場祭委員会 総括wiki</h1>
+    <div className="container mx-0 p-6">
+      <h1 className="font-bold text-2xl pb-4">駒場祭委員会 総括wiki</h1>
       <div className="flex w-[98vw]">
         <FileExplorer onFileSelect={handleFileSelect} />
         <Tabs

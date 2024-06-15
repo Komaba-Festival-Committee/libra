@@ -1,7 +1,9 @@
 // 色やフォントの設定
 $main-dark: #960026;
 $sub2-dark: #ad4456;
+$sub3-dark: #7b807f;
 $underline-color: black;
+$text-black: #271c19;
 
 @font-face {
   // 数字のみ
@@ -11,13 +13,16 @@ $underline-color: black;
 }
 
 .content {
+  $h1-mt: 4mm;
+  $h1-mb: 2mm;
+
   h1 {
     // letter-spacing: 0.2em; // 文字ヅメ20%
     font-feature-settings: "palt";
     color: $sub2-dark;
     padding-left: 3mm;
-    margin-top: 8mm;
-    margin-bottom: 1mm;
+    margin-top: $h1-mt;
+    margin-bottom: $h1-mb;
     text-indent: 4mm;
     position: relative;
 
@@ -26,33 +31,44 @@ $underline-color: black;
       position: absolute;
       left: 0;
       right: 0;
-      height: 0.35mm; // 線の高さ
+      height: 0.1rem; // 線の高さ
       background-color: $sub2-dark; // 線の色
       top: 55%; // 中央に配置
-      z-index: -1; // テキストの背後に配置
+      z-index: 0;
     }
 
     span {
       background-color: white;
       background-clip: border-box;
       padding: 0 0.1mm;
+      z-index: 1;
+      position: relative;
     }
 
-    font-family: sippori, var(--font-zen);
+    font-family: sippori,
+    var(--font-zen);
     font-weight: 400;
-    font-size: 2.15rem;
-    line-height: 4rem;
+    font-size: 2.33rem;
+    line-height: 3.5rem;
   }
 
-  h2 {
-    font-size: 1.76rem;
+  h2,
+  h3 {
     font-weight: 500;
+  }
+
+  $h2-mt: 4mm;
+  $h2-mb: 2mm;
+
+  h2 {
+    font-size: 1.75rem;
     line-height: 2.08rem;
     padding-left: 6mm; // 左インデント
-    margin-top: 0.95rem; // 段落前の空き
-    margin-bottom: 0.48rem; // 段落後の空き
+    margin-top: $h2-mt; // 段落前の空き
+    margin-bottom: $h2-mb; // 段落後の空き
     position: relative; // 囲み罫の位置設定のため
     color: $main-dark;
+
     &::before {
       content: "";
       position: absolute;
@@ -61,20 +77,108 @@ $underline-color: black;
       bottom: 0;
       width: 0.6rem; // 罫線の幅
       background-color: $main-dark; // 罫線の色
-      z-index: -1; // テキストの背後に配置
     }
   }
 
-  font-family: var(--font-noto);
+  $h3-mt: 4mm;
+  $h3-mb: 2mm;
+
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.67rem;
+    padding-left: 8mm;
+    margin-top: $h3-mt;
+    margin-bottom: $h3-mb;
+    position: relative;
+    color: $main-dark;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 2rem;
+      height: 0.1rem; // 線の高さ
+      background-color: $sub2-dark; // 線の色
+      top: 55%; // 中央に配置
+      z-index: 0;
+    }
+  }
+
+  h4 {
+    font-size: 1.17rem;
+    line-height: 2.08rem;
+    padding-left: 6mm; // 左インデント
+    margin-top: 0.95rem; // 段落前の空き
+    margin-bottom: 0.48rem; // 段落後の空き
+    position: relative; // 囲み罫の位置設定のため
+    color: $sub3-dark;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.06rem;
+      bottom: 0;
+      width: 0.5rem; // 罫線の幅
+      background-color: $sub3-dark; // 罫線の色
+    }
+  }
+
   font-size: 1rem;
+
+  font-family: var(--font-noto);
+  font-size: 1.08rem;
   line-height: 1.9rem;
 
-  h1 + span {
+  h1+span {
     display: block;
     margin-top: 0.72rem;
   }
-  h2 + span {
+
+  h2+span {
     display: block;
     margin-top: 0.72rem;
+  }
+
+  h2+h2 {
+    display: block;
+    margin-top: calc($h2-mb + $h2-mt);
+
+    &::before {
+      top: -3rem;
+      bottom: 0;
+    }
+  }
+
+  h2+h3 {
+    display: block;
+    margin-top: calc($h2-mb + $h3-mt);
+  }
+
+  h3+h3 {
+    display: block;
+    margin-top: calc($h3-mb + $h3-mt);
+  }
+
+  h3+h2 {
+    display: block;
+    margin-top: calc($h3-mb + $h2-mt);
+  }
+
+  blockquote {
+    color: rgba($text-black, 0.7);
+    padding-left: 5mm;
+    margin-top: 1mm;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.06rem;
+      bottom: 0;
+      width: 0.5mm; // 罫線の幅
+      background-color: rgba($text-black, 0.7); // 罫線の色
+    }
   }
 }
