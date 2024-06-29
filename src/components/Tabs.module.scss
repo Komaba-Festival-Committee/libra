@@ -132,7 +132,7 @@ $text-black: #271c19;
 
   h1+span {
     display: block;
-    margin-top: 0.72rem;
+    margin-top: $h1-mb;
   }
 
   h2+span {

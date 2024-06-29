@@ -116,7 +116,7 @@ export default function ({
       <div className="pt-1 px-6 m-8 overflow-y-scroll h-[82vh]">
         {files.length > 0 ? (
           <div className={styles.content}>
-            {renderContent(files[activeTabIndex].content || '')}
+            {renderContent(files[activeTabIndex]?.content || '')}
           </div>
         ) : (
           <div>No file selected.</div>

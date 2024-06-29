@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+const years = ['74', '96', '73', '95', '72', '94', '71'];
+
 const FileExplorer = ({
   onFileSelect,
 }: {
@@ -12,7 +14,16 @@ const FileExplorer = ({
     const fetchFiles = async () => {
       const response = await axios.get('/api');
       console.log(response.data);
-      setFiles(response.data);
+      setFiles([
+        ...response.data,
+        ...years.map((year) => ({
+          _id: `year_${year}`,
+          name: year,
+          type: 'folder',
+          year: year,
+          parent_id: null,
+        })),
+      ]);
     };
     fetchFiles();
   }, []);
