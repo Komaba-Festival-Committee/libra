@@ -51,7 +51,7 @@ def store_files_in_mongo(root_folder_path, parent_id=None):
                 'name': entry.name,
                 'path': os.path.relpath(entry, root_folder_path),
                 'type': 'folder',
-                'parent_id': parent_id
+                'parent_id': parent_id or f'year_{year}'
             }
             result = collection.insert_one(folder_data)
             new_parent_id = result.inserted_id
